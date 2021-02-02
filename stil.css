@@ -1,0 +1,74 @@
+.kontejner
+{
+    display: flex;
+    border: 1px solid black;
+    flex-direction: column;
+}
+
+.kontForma
+{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 200px;
+}
+
+.kontListe
+{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+tr
+{
+    display: flex;
+}
+
+table
+{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td
+{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-collapse: collapse;
+    flex: 1 1 10px;
+}
+
+.prvaKolona
+{
+    display: flex;
+    border: 1px solid black;
+    max-width: 30px;
+    flex-basis: 20px;
+    text-align: center;
+}
+
+.drugaKolona
+{
+    display: flex;
+    border: 1px solid black;
+    flex-basis: 100px;
+}
+
+.trecaKolona
+{
+    display: flex;
+    border: 1px solid black;
+    flex-basis: 100px;
+}
+
+.cetvrtaKolona
+{
+    display: flex;
+    border: 1px solid black;
+    max-width: 60px;
+    flex-basis: 10px;
+    text-align: center; 
+}
