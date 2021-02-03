@@ -64,6 +64,11 @@ export class Anime
         host.appendChild(this.miniKontejner);
     }
 
+    azurirajStatus(vr)
+    {
+        this.status = vr;
+    }
+
     // vratiTip(host)
     // {
     //     this.miniKontejner = document.createElement("label");

@@ -28,4 +28,9 @@ export class Manga
         this.miniKontejner.innerHTML = this.status;
         host.appendChild(this.miniKontejner);
     }
+
+    azurirajStatus(v)
+    {
+        this.status = v;
+    }
 }

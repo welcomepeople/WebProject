@@ -24,21 +24,29 @@ export class Forma
     }
     crtajFormu(host)
     {
+        const BIGFORM = document.createElement("div");
+        const smallForm = document.createElement("div");
+        BIGFORM.className = "bigform";
         let opcija = null;
         let labela = null;
         const kontForma = document.createElement("div");
         kontForma.className="kontForma";
+        smallForm.className= "kontForma";
         let divR = null;
         //divR.className = "divForma";
-        host.appendChild(kontForma);
+        //host.appendChild(kontForma);
 
-        var elLabela = document.createElement("h4");
-        elLabela.innerHTML = "Add to list";
-        kontForma.appendChild(elLabela);
+        //var elLabela = null;
+        this.praviLabel(kontForma, "h4", "Add to list");
+        // document.createElement("h4");
+        // elLabela.innerHTML = "Add to list";
+        // kontForma.appendChild(elLabela);
 
-        elLabela = document.createElement("label");
-        elLabela.innerHTML = "Read or Watch list?";
-        kontForma.appendChild(elLabela);
+
+        this.praviLabel(kontForma, "label", "Read or Watch list?");
+        // document.createElement("label");
+        // elLabela.innerHTML = "Read or Watch list?";
+        // kontForma.appendChild(elLabela);
 
 
         let tipListe = ["Read", "Watch"];
@@ -49,9 +57,10 @@ export class Forma
         divR = document.createElement("div");
         let zanr = document.createElement("select");
         zanr.className = "zanr";
-        labela = document.createElement("label");
-        labela.innerHTML = "Genre: ";
-        divR.appendChild(labela);
+        this.praviLabel(divR, "label", "Genre: ");
+        // document.createElement("label");
+        // labela.innerHTML = "Genre: ";
+        // divR.appendChild(labela);
         divR.appendChild(zanr);
 
         Zanr.forEach((X, index) =>
@@ -65,11 +74,12 @@ export class Forma
         kontForma.appendChild(divR);
 
         divR = document.createElement("div");
-        labela = document.createElement("label");
-        labela.innerHTML = "Name: ";
+        this.praviLabel(divR, "label", "Name: ");
+        // document.createElement("label");
+        // labela.innerHTML = "Name: ";
         let polje = document.createElement("input");
         polje.className = "ime";
-        divR.appendChild(labela);
+        //divR.appendChild(labela);
         divR.appendChild(polje);
         kontForma.appendChild(divR);
 
@@ -90,29 +100,93 @@ export class Forma
             const genre = this.kontejner.querySelector(".zanr").value;
 
             let element = null;
+            //let daLiPostoji;
             this.lista.forEach((X, index)=>
             {
                 if(tip == X.tip && tip == "Watch")
                 {
-                    element = new Anime(genre, ime, status);
-                    X.dodajElementUListu(element);
-                    X.azurirajListu();
+                    //if(!X.lista.find(el => el.ime == ime))
+                    //{
+                        element = new Anime(genre, ime, status);
+                        X.dodajElementUListu(element);
+                        X.azurirajListu();
+                    //}
                 }
                 else if(tip == X.tip && tip == "Read")
                 {
-                    element = new Manga(genre, ime, status);
-                    X.dodajElementUListu(element);
-                    X.azurirajListu();
+                    //if(X.Lista.find(el => el.ime == ime))
+                    //{
+                        element = new Manga(genre, ime, status);
+                        X.dodajElementUListu(element);
+                        X.azurirajListu();
+                    //}
                 }
             })
 
-            console.log("Read Lista");
-            console.log(this.lista[0]);
-            console.log("Watch lista");
-            console.log(this.lista[1]);
-
+            // console.log("Read Lista");
+            // console.log(this.lista[0]);
+            // console.log("Watch lista");
+            // console.log(this.lista[1]);
 
         }
+
+        BIGFORM.appendChild(kontForma);
+
+
+        divR = document.createElement("div");
+        this.praviLabel(smallForm, "h4", "Update in list");
+
+        this.praviLabel(divR, "label", "Read or Watch list?");
+        this.praviRadio(divR, tipListe, "tip1");
+        smallForm.appendChild(divR);
+
+        divR = document.createElement("div");
+        this.praviLabel(divR, "label", "Index of the selected item: ");
+        polje = document.createElement("input");
+        polje.className = "indeks";
+        divR.appendChild(polje);
+        smallForm.appendChild(divR);
+
+        divR = document.createElement("div");
+        this.praviLabel(divR, "label", "How did status change?");
+        this.praviRadio(divR, Enum, "status1");
+        smallForm.appendChild(divR);
+        
+        divR = document.createElement("div");
+        const Dugme = document.createElement("button");
+        Dugme.innerHTML = "Update list";
+        divR.appendChild(Dugme);
+        smallForm.appendChild(divR);
+
+        Dugme.onclick = (ev) =>
+        {
+            const tip = this.kontejner.querySelector(`input[name ='${"tip1"}']:checked`).value;
+            const status = this.kontejner.querySelector(`input[name ='${"status1"}']:checked`).value;
+            const IND = parseInt(this.kontejner.querySelector(".indeks").value);
+            // console.log("tip");
+            // console.log(tip);
+            // console.log("status");
+            // console.log(status);
+            // console.log(IND);
+            this.lista.forEach((X, index)=>
+            {
+                if(X.tip == tip)
+                {
+                    X.lista[IND-1].azurirajStatus(status);
+                    X.azuriranjeListe(IND-1);
+                }
+            })
+        }
+
+        BIGFORM.appendChild(smallForm);
+        host.appendChild(BIGFORM);
+    }
+
+    praviLabel(host, tip, STRING)
+    {
+        var labela = document.createElement(tip);
+        labela.innerHTML = STRING;
+        host.appendChild(labela);
     }
 
     praviRadio(host, lis, nekiString)

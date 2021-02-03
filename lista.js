@@ -89,33 +89,26 @@ export class Lista{
     dodajNoviRed(X, indeks, tabela)
     {
         let row = document.createElement("tr");
+        row.className = "uf" + indeks;
         let data = document.createElement("td");
         data.className = "prvaKolona";
-        let btn = document.createElement("button");
-        btn.innerHTML = String(indeks+1) + ".";
-        data.appendChild(btn);
-
-        /////mnogo ruzno ali definicija sta radi dugme
-        btn.onclick = (ev) =>
-        {
-
-        }
-        /////
+        data.innerHTML = String(indeks+1) + ".";
 
         row.appendChild(data);
 
         data = document.createElement("td");
-        data.className = "drugaKolona";
+        data.className = "drugaKolona" + indeks;
         X.vratiIme(data);
         row.appendChild(data);
 
         data = document.createElement("td");
-        data.className = "trecaKolona";
+        data.className = "trecaKolona" + indeks;
         X.vratiZanr(data);
         row.appendChild(data);
             
         data = document.createElement("td");
-        data.className = "cetvrtaKolona";
+        //data.className = "cetvrtaKolona";
+        data.className = "cetvrtaKolona" + indeks;
         X.vratiStatus(data);
         row.appendChild(data);
             
@@ -124,112 +117,73 @@ export class Lista{
 
     azurirajListu()
     {
-        let el = this.lista[this.lista.length-1];
-        const T = this.kontejner.querySelector(".tabela");
-        //const kL = this.kontLista.querySelector(".kontListe");
-        this.dodajNoviRed(el, this.lista.length-1, T);
-        //kL.appendChild(T);
-        //this.kontejner.appendChild
-        
+            let el = this.lista[this.lista.length-1];
+            const T = this.kontejner.querySelector(".tabela");
+            this.dodajNoviRed(el, this.lista.length-1, T);
+        // this.lista.forEach((x, indeks)=>
+        // {
+        //     console.log(this.kontejner);
+        //     this.azuriranjeListe(indeks);
+        // })
     }
-    // crtajFormu(host){
-    //     let opcija = null;
-    //     let labela = null;
-    //     const kontForma = document.createElement("div");
-    //     kontForma.className="kontForma";
-    //     let divR = null;
-    //     //divR.className = "divForma";
-    //     host.appendChild(kontForma);
 
-    //     var elLabela = document.createElement("h4");
-    //     elLabela.innerHTML = "Add to list";
-    //     kontForma.appendChild(elLabela);
+    azuriranjeListe(indeks)
+    {
+        let el = this.lista[indeks];
+        const S = this.kontejner.querySelector(".drugaKolona" + indeks);
+        const D = this.kontejner.querySelector(".trecaKolona" + indeks);
+        const F = this.kontejner.querySelector(".cetvrtaKolona" + indeks);
+        const R = this.kontejner.querySelector(".uf"+indeks);
 
-    //     elLabela = document.createElement("label");
-    //     elLabela.innerHTML = "Read or Watch list?";
-    //     kontForma.appendChild(elLabela);
+        R.removeChild(F);
+        R.removeChild(D);
+        R.removeChild(S);
 
+        let s = document.createElement("td");
+        s.className = "drugaKolona" + indeks;
+        let d = document.createElement("td")
+        d.className = "trecaKolona" + indeks;
+        let f = document.createElement("td");
+        f.classList = "cetvrtaKolona" + indeks;
 
-    //     let tipListe = ["Read", "Watch"];
-    //     this.praviRadio(kontForma, tipListe, "tip");
+        el.vratiIme(s);
+        el.vratiZanr(d);
+        el.vratiStatus(f);
+        R.appendChild(s);
+        R.appendChild(d);
+        R.appendChild(f);
+    }
 
-
-    //     let Zanr = ["Shonen", "Shoujo", "Seinen", "Josei", "Ecchi", "Isekai", "Mecha", "Slice of Life"];
-    //     divR = document.createElement("div");
-    //     let zanr = document.createElement("select");
-    //     zanr.className = "zanr";
-    //     labela = document.createElement("label");
-    //     labela.innerHTML = "Genre: ";
-    //     divR.appendChild(labela);
-    //     divR.appendChild(zanr);
-
-    //     Zanr.forEach((X, index) =>
-    //     {
-    //         opcija = document.createElement("option");
-    //         opcija.innerHTML = X;
-    //         opcija.value = X;
-    //         zanr.appendChild(opcija);
-    //     })
-
-    //     kontForma.appendChild(divR);
-
-    //     divR = document.createElement("div");
-    //     labela = document.createElement("label");
-    //     labela.innerHTML = "Name: ";
-    //     let polje = document.createElement("input");
-    //     polje.className = "ime";
-    //     divR.appendChild(labela);
-    //     divR.appendChild(polje);
-    //     kontForma.appendChild(divR);
-
-    //     let Enum = ["Done", "Doing", "To Do"];
-    //     this.praviRadio(kontForma, Enum, "status");
-
-
-    //     divR = document.createElement("div");
-    //     const dugme = document.createElement("button");
-    //     dugme.innerHTML = "Add to list";
-    //     divR.appendChild(dugme);
-    //     kontForma.appendChild(divR);
-    //     dugme.onclick = (ev) =>
-    //     {
-    //         const ime = this.kontejner.querySelector(".ime").value;
-    //         const tip = this.kontejner.querySelector(`input[name ='${"tip"}']:checked`).value;
-    //         const status = this.kontejner.querySelector(`input[name ='${"status"}']:checked`).value;
-    //         const genre = this.kontejner.querySelector(".zanr").value;
-
-    //         let element = null;
-    //         if(tip == this.tip)
-    //         {
-    //             element = new Anime(genre, ime, status);
-    //             this.dodajElementUListu(element);
-    //         }
-    //         console.log(element);
-
-
-    //     }
-    // }
-
-    // praviRadio(host, lis, nekiString)
+    //azuriranjeListe(element, indeks)
     // {
-    //     let divR = null;
-    //     let opcija = null;
-    //     let labela = null;
+    //     console.log(parseInt(indeks));
+    //     var S = this.kontejner.querySelector(".drugaKolona" + indeks);
+    //     var D = this.kontejner.querySelector(".trecaKolona" + indeks);
+    //     var F = this.kontejner.querySelector(".cetvrtaKolona" + indeks);
+    //     var R = this.kontejner.querySelector(".uf"+indeks);
 
-    //     lis.forEach((X, index) =>
-    //     {
-    //         divR = document.createElement("div");
-    //         opcija = document.createElement("input");
-    //         opcija.type = "radio";
-    //         opcija.name = nekiString;
-    //         opcija.value = X;
+    //     console.log(this.kontejner);
+    //     console.log(F);
+    //     console.log(D);
+    //     console.log(S);
 
-    //         labela = document.createElement("label");
-    //         labela.innerHTML = X;
+    //     R.removeChild(S);
+    //     R.removeChild(D);
+    //     R.removeChild(F);
 
-    //         divR.appendChild(opcija);
-    //         divR.appendChild(labela);
-    //         host.appendChild(divR);
-    //     })
+    //     S = document.createElement("td");
+    //     S.className = "drugaKolona" + indeks;
+    //     D = document.createElement("td")
+    //     D.className = "trecaKolona" + indeks;
+    //     F = document.createElement("td");
+    //     F.classList = "cetvrtaKolona" + indeks;
+    //     // console.log(this.kontejner);
+    //     // console.log(S);
+    //     element.vratiIme(S);
+    //     element.vratiZanr(D);
+    //     element.vratiStatus(F);
+    //     R.appendChild(S);
+    //     R.appendChild(D);
+    //     R.appendChild(F);
     // }
 }
